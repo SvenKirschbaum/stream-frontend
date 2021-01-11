@@ -1,6 +1,8 @@
 import {Button, Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
+import "./FrontpageComponent.css";
+
 function Frontpage() {
     return (
         <Container fluid className="frontpage">

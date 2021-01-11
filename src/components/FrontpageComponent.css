@@ -1,0 +1,12 @@
+.frontpage {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgrey;
+}
+
+.frontpage .btn {
+    margin: 1em;
+}

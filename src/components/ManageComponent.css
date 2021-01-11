@@ -1,0 +1,16 @@
+.manage {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    background-color: lightgrey;
+}
+.manage textarea {
+    width: 30em;
+    resize: none;
+}
+.manage-form {
+    margin: 0 auto;
+}
