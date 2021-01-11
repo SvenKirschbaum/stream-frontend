@@ -3,17 +3,20 @@ import {Alert, Container} from "react-bootstrap";
 
 import "./LiveComponent.css";
 import {useEffect, useState} from "react";
+import {CSSTransition} from "react-transition-group";
 
 function LiveComponent() {
 
     let client = null;
 
     const [message, setMessage] = useState(null);
+    const [showMessage, setShowMessage] = useState(false);
     const [messageQueue, setMessageQueue] = useState([]);
 
     useEffect(() => {
         if(messageQueue.length > 0 && message === null) {
             setMessage(messageQueue[0]);
+            setShowMessage(true);
             const [newMessage, ...newMessageQueue] = messageQueue;
             setMessageQueue(newMessageQueue);
         }
@@ -22,7 +25,7 @@ function LiveComponent() {
     useEffect(() => {
         if (message != null) {
             const timer = setTimeout(function () {
-                setMessage(null);
+                setShowMessage(false);
             }, 5000);
 
             return () => clearTimeout(timer);
@@ -43,7 +46,9 @@ function LiveComponent() {
                 onMessage={onMessage}
                 ref={(_client) => client = _client}
             />
-            {message && <Alert variant="secondary">{message}</Alert>}
+            <CSSTransition in={showMessage} timeout={1500} unmountOnExit classNames={"fade"} onExited={() => setMessage(null)}>
+                <Alert variant="secondary">{message}</Alert>
+            </CSSTransition>
         </Container>
     )
 }
