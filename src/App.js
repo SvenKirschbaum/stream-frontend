@@ -1,25 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {ReactKeycloakProvider} from "@react-keycloak/web";
+
+import keycloak from "./keycloak";
+import {Redirect} from "react-router";
+import LiveComponent from "./components/LiveComponent";
+import ManageComponent from "./components/ManageComponent";
+import FrontpageComponent from "./components/FrontpageComponent";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+      <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<div>"Loading..."</div>} initOptions={{
+        onLoad: 'check-sso',
+        promiseType: 'native',
+        flow: 'standard',
+        pkceMethod: 'S256',
+        checkLoginIframe: false,
+        silentCheckSsoRedirectUri: window.location.origin + '/silent-sso.html'
+      }}>
+          <AppRouter/>
+      </ReactKeycloakProvider>
+    );
+}
+
+function AppRouter() {
+    return (
+      <Router>
+          <Switch>
+            <Route path="/" exact component={FrontpageComponent}/>
+            <Route path="/live" component={LiveComponent}/>
+            <Route path="/manage" component={ManageComponent}/>
+            <Route>
+                <Redirect to={"/"} />
+            </Route>
+          </Switch>
+      </Router>
+    );
 }
 
 export default App;

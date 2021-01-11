@@ -1,3 +1,19 @@
+.frontpage {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.frontpage .btn {
+  margin: 1em;
+}
+
+
+
+
+
 .App {
   text-align: center;
 }
