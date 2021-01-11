@@ -1,5 +1,5 @@
 import SockJsClient from 'react-stomp';
-import {Container} from "react-bootstrap";
+import {Alert, Container} from "react-bootstrap";
 
 import "./LiveComponent.css";
 import {useEffect, useState} from "react";
@@ -43,7 +43,7 @@ function LiveComponent() {
                 onMessage={onMessage}
                 ref={(_client) => client = _client}
             />
-            {message && <h1>{message}</h1>}
+            {message && <Alert variant="secondary">{message}</Alert>}
         </Container>
     )
 }
