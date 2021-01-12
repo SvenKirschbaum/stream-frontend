@@ -16,6 +16,10 @@
     word-break: break-all;
 }
 
+.message {
+    font-size: 2em;
+}
+
 
 .fade-enter {
     opacity: 0;
@@ -31,3 +35,5 @@
     opacity: 0;
     transition: opacity 1500ms;
 }
+
+

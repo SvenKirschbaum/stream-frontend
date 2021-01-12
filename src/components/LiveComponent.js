@@ -47,7 +47,7 @@ function LiveComponent() {
                 ref={(_client) => client = _client}
             />
             <CSSTransition in={showMessage} timeout={1500} unmountOnExit classNames={"fade"} onExited={() => setMessage(null)}>
-                <Alert variant="secondary">{message}</Alert>
+                <Alert variant="secondary" className="message">{message}</Alert>
             </CSSTransition>
         </Container>
     )
