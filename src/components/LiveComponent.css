@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'alert-font';
+    src: local('segoe ul black'), url(../assets/segoe-ui-black.woff) format('woff');
+}
+
 .live {
     height: 100%;
     width: 100%;
@@ -17,8 +22,9 @@
 }
 
 .alert {
+    font-family: "alert-font", sans-serif;
     border-radius: 1em;
-    background-color: purple;
+    background-color: #9d32a8;
     color: white;
 }
 
