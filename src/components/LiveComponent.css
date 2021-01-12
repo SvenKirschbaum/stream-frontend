@@ -28,8 +28,8 @@
     color: white;
 }
 
-.alert .message {
-    font-size: 2em;
+.alert.message {
+    font-size: 1.5em;
 }
 
 
