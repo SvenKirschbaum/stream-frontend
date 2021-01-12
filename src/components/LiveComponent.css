@@ -16,7 +16,13 @@
     word-break: break-all;
 }
 
-.message {
+.alert {
+    border-radius: 1em;
+    background-color: purple;
+    color: white;
+}
+
+.alert .message {
     font-size: 2em;
 }
 
