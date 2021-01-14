@@ -10,13 +10,14 @@ import FrontpageComponent from "./components/FrontpageComponent";
 
 function App() {
     return (
-      <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<div>"Loading..."</div>} initOptions={{
+      <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<div />} initOptions={{
         onLoad: 'check-sso',
         promiseType: 'native',
         flow: 'standard',
         pkceMethod: 'S256',
         checkLoginIframe: false,
-        silentCheckSsoRedirectUri: window.location.origin + '/silent-sso.html'
+        silentCheckSsoRedirectUri: window.location.origin + '/silent-sso.html',
+        silentCheckSsoFallback: false
       }}>
           <AppRouter/>
       </ReactKeycloakProvider>
