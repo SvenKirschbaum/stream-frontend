@@ -26,7 +26,7 @@ function LiveComponent() {
         if (message != null) {
             const timer = setTimeout(function () {
                 setShowMessage(false);
-            }, 5000);
+            }, 10000);
 
             return () => clearTimeout(timer);
         }
