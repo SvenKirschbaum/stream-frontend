@@ -7,6 +7,7 @@ import {Redirect} from "react-router";
 import LiveComponent from "./components/LiveComponent";
 import ManageComponent from "./components/ManageComponent";
 import FrontpageComponent from "./components/FrontpageComponent";
+import {StompSessionProvider} from "react-stomp-hooks";
 
 function App() {
     return (
@@ -19,7 +20,9 @@ function App() {
         silentCheckSsoRedirectUri: window.location.origin + '/silent-sso.html',
         silentCheckSsoFallback: false
       }}>
-          <AppRouter/>
+          <StompSessionProvider url={'/api/sock'}>
+            <AppRouter/>
+          </StompSessionProvider>
       </ReactKeycloakProvider>
     );
 }

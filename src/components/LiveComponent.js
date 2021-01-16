@@ -1,14 +1,11 @@
-import SockJsClient from 'react-stomp';
 import {Alert, Container} from "react-bootstrap";
 
 import "./LiveComponent.css";
 import {useEffect, useState} from "react";
 import {CSSTransition} from "react-transition-group";
+import {useSubscription} from "react-stomp-hooks";
 
 function LiveComponent() {
-
-    let client = null;
-
     const [message, setMessage] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
     const [messageQueue, setMessageQueue] = useState([]);
@@ -32,20 +29,14 @@ function LiveComponent() {
         }
     }, [message]);
 
-    const onMessage = (message) => {
+    useSubscription("/topic/racecontrol", (message) => {
         const newMessageQueue = [...messageQueue];
-        newMessageQueue.push(message);
+        newMessageQueue.push(message.body);
         setMessageQueue(newMessageQueue);
-    };
+    })
 
     return (
         <Container fluid className="live">
-            <SockJsClient
-                url={`/api/sock`}
-                topics={['/topic/racecontrol']}
-                onMessage={onMessage}
-                ref={(_client) => client = _client}
-            />
             <CSSTransition in={showMessage} timeout={1500} unmountOnExit classNames={"fade"} onExited={() => setMessage(null)}>
                 <Alert className="message">{message}</Alert>
             </CSSTransition>
