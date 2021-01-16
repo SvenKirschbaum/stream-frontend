@@ -12,9 +12,9 @@ function LiveComponent() {
 
     useEffect(() => {
         if(messageQueue.length > 0 && message === null) {
-            setMessage(messageQueue[0]);
-            setShowMessage(true);
             const [newMessage, ...newMessageQueue] = messageQueue;
+            setMessage(newMessage);
+            setShowMessage(true);
             setMessageQueue(newMessageQueue);
         }
     }, [messageQueue, message])
