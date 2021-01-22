@@ -4,11 +4,16 @@ import "./LiveComponent.css";
 import {useEffect, useState} from "react";
 import {CSSTransition} from "react-transition-group";
 import {useSubscription} from "react-stomp-hooks";
+import useSound from "use-sound";
+
+import notification from '../assets/notification.mp3';
 
 function LiveComponent() {
     const [message, setMessage] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
     const [messageQueue, setMessageQueue] = useState([]);
+
+    const [playSound] = useSound(notification);
 
     useEffect(() => {
         if(messageQueue.length > 0 && message === null) {
@@ -16,6 +21,7 @@ function LiveComponent() {
             setMessage(newMessage);
             setShowMessage(true);
             setMessageQueue(newMessageQueue);
+            playSound();
         }
     }, [messageQueue, message])
 
