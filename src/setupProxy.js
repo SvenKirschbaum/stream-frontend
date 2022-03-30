@@ -1,9 +1,7 @@
 // noinspection NpmUsedModulesInstalled
-const proxy = require('http-proxy-middleware');
-
-console.log("TESTTESTTEST")
+const {createProxyMiddleware} = require('http-proxy-middleware');
 
 module.exports = function(app) {
-    app.use(proxy('/api', { target: 'http://localhost:8080' }));
-    app.use(proxy('/api/sock/', { target: 'ws://localhost:8080', ws: true }));
+    app.use(createProxyMiddleware('/api', { target: 'http://localhost:8080' }));
+    app.use(createProxyMiddleware('/api/sock/', { target: 'ws://localhost:8080', ws: true }));
 };
