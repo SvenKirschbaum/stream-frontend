@@ -1,17 +1,18 @@
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
