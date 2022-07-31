@@ -13,7 +13,7 @@
     "react-router-dom": "5.3.3",
     "react-dom": "18.2.0",
     "react-stomp-hooks": "2.1.0",
-    "react-transition-group": "4.4.2",
+    "react-transition-group": "4.4.4",
     "use-sound": "4.0.1",
     "web-vitals": "2.1.4"
   },
