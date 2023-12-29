@@ -12,7 +12,7 @@
     "react-router": "5.3.4",
     "react-router-bootstrap": "0.25.0",
     "react-router-dom": "5.3.4",
-    "react-stomp-hooks": "2.2.0",
+    "react-stomp-hooks": "2.2.1",
     "react-transition-group": "4.4.5",
     "use-sound": "4.0.1",
     "web-vitals": "3.5.1"
