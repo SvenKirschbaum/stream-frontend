@@ -1,9 +1,9 @@
-import {useKeycloak} from "@react-keycloak/web";
 import {useHistory} from "react-router";
 import {useEffect, useState} from "react";
 
 import "./ManageComponent.css";
 import {Button, Card, Form} from "react-bootstrap";
+import {useAuth} from "react-oidc-context";
 
 function ManageComponent() {
     return (
@@ -16,23 +16,28 @@ function ManageComponent() {
 }
 
 function AuthorizationCheck(props) {
-    const {initialized, keycloak} = useKeycloak();
+    const auth = useAuth();
     const history = useHistory();
 
     useEffect(() => {
         let timer = setTimeout(function() {
-            if(!authorized) history.push("/");
+            if(!auth.isAuthenticated) history.push("/");
         }, 3000);
 
         return () => {clearTimeout(timer)}
     })
 
-    if(!keycloak.authenticated) {
-        keycloak.login();
-        return null;
+    useEffect(() => {
+        if(!auth.isAuthenticated) {
+            auth.signinRedirect();
+        }
+    }, [auth.isAuthenticated]);
+
+    if(!auth.isAuthenticated) {
+        return <h3>Redirecting to Login...</h3>
     }
 
-    const authorized = keycloak.hasResourceRole("manager","stream-backend");
+    const authorized = auth.user.profile.resource_access["stream-backend"].roles.includes("manager");
 
     if(!authorized) {
         return <h3>You are not authorized to view this page.</h3>
@@ -42,7 +47,7 @@ function AuthorizationCheck(props) {
 }
 
 function SubmitMessagePage() {
-    const {initialized, keycloak} = useKeycloak();
+    const auth = useAuth();
 
     const [input, setInput] = useState("");
 
@@ -53,7 +58,7 @@ function SubmitMessagePage() {
     const onSubmitButton = () => {
         const headers = new Headers();
         headers.append("Content-Type", "text/plain");
-        headers.set("Authorization", "Bearer " + keycloak.token);
+        headers.set("Authorization", "Bearer " + auth.user.access_token);
 
         fetch('/api/send', {
             method: 'POST',

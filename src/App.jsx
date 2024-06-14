@@ -1,29 +1,32 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import {ReactKeycloakProvider} from "@react-keycloak/web";
 
-import keycloak from "./keycloak";
 import {Redirect} from "react-router";
 import LiveComponent from "./components/LiveComponent";
 import ManageComponent from "./components/ManageComponent";
 import FrontpageComponent from "./components/FrontpageComponent";
 import {StompSessionProvider} from "react-stomp-hooks";
+import {useCallback} from "react";
+import {AuthProvider} from "react-oidc-context";
 
 function App() {
+
+    const onSigninCallback = useCallback(() => {
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }, []);
+
     return (
-      <ReactKeycloakProvider authClient={keycloak} LoadingComponent={<div />} initOptions={{
-        onLoad: 'check-sso',
-        promiseType: 'native',
-        flow: 'standard',
-        pkceMethod: 'S256',
-        checkLoginIframe: false,
-        silentCheckSsoRedirectUri: window.location.origin + '/silent-sso.html',
-        silentCheckSsoFallback: false
-      }}>
+        <AuthProvider
+            authority={import.meta.env.VITE_OIDC_AUTHORITY}
+            client_id={import.meta.env.VITE_OIDC_CLIENT_ID}
+            redirect_uri={window.location.origin.toString()}
+            automaticSilentRenew={true}
+            onSigninCallback={onSigninCallback}
+        >
           <StompSessionProvider url={'/api/sock'}>
             <AppRouter/>
           </StompSessionProvider>
-      </ReactKeycloakProvider>
+        </AuthProvider>
     );
 }
 
