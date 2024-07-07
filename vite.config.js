@@ -34,11 +34,5 @@ export default defineConfig({
     },
     build: {
         outDir: 'build'
-    },
-    resolve: {
-        alias: {
-            // See https://github.com/sockjs/sockjs-client/issues/439
-            'sockjs-client': 'node_modules/sockjs-client/dist/sockjs.js'
-        }
     }
 });
