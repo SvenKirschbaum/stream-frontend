@@ -1,7 +1,7 @@
 import {Alert, Container} from "react-bootstrap";
 
 import "./LiveComponent.css";
-import {useEffect, useState} from "react";
+import {createRef, useEffect, useState} from "react";
 import {CSSTransition} from "react-transition-group";
 import {useSubscription} from "react-stomp-hooks";
 import useSound from "use-sound";
@@ -14,6 +14,8 @@ function LiveComponent() {
     const [messageQueue, setMessageQueue] = useState([]);
 
     const [playSound] = useSound(notification);
+
+    const ref = createRef(null);
 
     useEffect(() => {
         if(messageQueue.length > 0 && message === null) {
@@ -43,8 +45,8 @@ function LiveComponent() {
 
     return (
         <Container fluid className="live">
-            <CSSTransition in={showMessage} timeout={1500} unmountOnExit classNames={"fade"} onExited={() => setMessage(null)}>
-                <Alert className="message">{message}</Alert>
+            <CSSTransition nodeRef={ref} in={showMessage} timeout={1500} unmountOnExit classNames={"fade"} onExited={() => setMessage(null)}>
+                <Alert ref={ref} className="message">{message}</Alert>
             </CSSTransition>
         </Container>
     )
